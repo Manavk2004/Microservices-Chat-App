@@ -1,6 +1,6 @@
 
 
-export type UserContext = {
+export type UserContext {
     clerkUserId: string;
     email: string;
     name: string;

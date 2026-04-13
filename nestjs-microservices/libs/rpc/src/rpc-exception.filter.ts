@@ -14,14 +14,14 @@ export class RpcAllExceptionFilter extends BaseRpcExceptionFilter{
         }
 
         const status = exception?.getStatus?.()
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
+        const message = exception?.message ?? 'Internal Error'
 
         if(status === 400){
+            const details = exception?.getResponse?.()
             const payload : RpcErrorPayload = {
                 code: "VALIDATION_ERROR",
                 message: "Validation Failed",
-                details: response
+                details
             }
 
             return super.catch(new RpcException(payload), host)
@@ -29,7 +29,7 @@ export class RpcAllExceptionFilter extends BaseRpcExceptionFilter{
 
         const payload: RpcErrorPayload = {
             code: "INTERNAL",
-            message: "Internal Error"
+            message
         }
 
         return super.catch(new RpcException(payload), host)
