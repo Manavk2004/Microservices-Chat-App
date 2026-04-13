@@ -1,0 +1,21 @@
+import { v2 as cloudinary } from "cloudinary";
+
+
+export function initCloudinary(){
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apikey = process.env.CLOUDINARY_API_KEY;
+    const secretKey = process.env.CLOUDINARY_API_SECRET;
+
+    if(!cloudName || !apikey || !secretKey){
+        throw new Error(('Cloudinary screts are missing!!!'))
+    }
+
+
+    cloudinary.config({
+        cloud_name: cloudName,
+        api_key: apikey,
+        api_secret: secretKey
+    })
+
+    return cloudinary
+}

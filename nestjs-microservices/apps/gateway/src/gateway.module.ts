@@ -36,7 +36,7 @@ import { ProductsHttpController } from './products/products.controller';
           transport: Transport.RMQ,
           options: {
             urls: [process.env.RABBITMQ_URL ?? 'amqp://localhost:5672'],
-            queue: process.env.CATALOG_QUEUE ?? 'media_queue',
+            queue: process.env.MEDIA_QUEUE ?? 'media_queue',
             queueOptions: {durable: false }
           }
         },
@@ -45,7 +45,7 @@ import { ProductsHttpController } from './products/products.controller';
           transport: Transport.RMQ,
           options: {
             urls: [process.env.RABBITMQ_URL ?? 'amqp://localhost:5672'],
-            queue: process.env.CATALOG_QUEUE ?? 'search_queue',
+            queue: process.env.SEARCH_QUEUE ?? 'search_queue',
             queueOptions: {durable: false }
           }
         }
