@@ -26,7 +26,6 @@ export class ProductsHttpController{
     constructor(
         // Gateway talks to catalog via RMQ client
         @Inject('CATALOG_CLIENT') private readonly catalogClient: ClientProxy,
-
         @Inject('MEDIA_CLIENT') private readonly mediaClient: ClientProxy
     ){}
 
@@ -91,8 +90,6 @@ export class ProductsHttpController{
             imageUrl,
             createdByClerkUserId: user.clerkUserId
         }
-
-        console.log("The payload", payload)
 
         // RMQ request and response pattern
 

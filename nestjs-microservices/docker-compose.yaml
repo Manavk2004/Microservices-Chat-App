@@ -1,0 +1,80 @@
+# RabbitMQ
+
+services:
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q check_running
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  # Gateway
+
+  gateway:
+    build: 
+      context: .
+      args:
+        SERVICE: gateway
+    ports:
+      - "4000:4000"
+    env_file: .env
+    environment: 
+      RABBITMQ_URL: amqp://rabbitmq:5672
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+
+  # Catalog
+
+  catalog:
+    build: 
+      context: .
+      args:
+        SERVICE: catalog
+    env_file: .env
+    environment: 
+      RABBITMQ_URL: amqp://rabbitmq:5672
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+
+
+  # Search
+
+  search:
+    build: 
+      context: .
+      args:
+        SERVICE: search
+    env_file: .env
+    environment: 
+      RABBITMQ_URL: amqp://rabbitmq:5672
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+
+  # Media
+
+  media:
+    build: 
+      context: .
+      args:
+        SERVICE: media
+    env_file: .env
+    environment: 
+      RABBITMQ_URL: amqp://rabbitmq:5672
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
