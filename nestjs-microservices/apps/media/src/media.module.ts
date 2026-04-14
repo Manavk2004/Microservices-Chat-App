@@ -8,12 +8,12 @@ import { Media, MediaSchema } from './media/media.schema';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
 
     MongooseModule.forRoot(process.env.MONGO_URI_MEDIA as string),
 
-    MongooseModule.forFeature([{ name: Media.name, schema: MediaSchema}])
+    MongooseModule.forFeature([{ name: Media.name, schema: MediaSchema }]),
   ],
   controllers: [MediaController],
   providers: [MediaService],

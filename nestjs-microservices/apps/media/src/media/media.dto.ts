@@ -1,32 +1,27 @@
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from 'class-validator';
 
+export class UploadProductImageDto {
+  @IsString()
+  fileName!: string;
 
-export class UploadProductImageDto{
+  @IsString()
+  mimeType!: string;
 
-    @IsString()
-    fileName!: string;
+  @IsString()
+  base64!: string;
 
-    @IsString()
-    mimeType!: string;
-
-    @IsString()
-    base64!: string;
-
-    @IsString()
-    uploadByUserId!: string;
-
-
+  @IsString()
+  uploadByUserId!: string;
 }
 
 export class AttachToProductDto {
+  @IsString()
+  mediaId!: string;
 
-    @IsString()
-    mediaId!: string;
+  @IsString()
+  productId!: string;
 
-    @IsString()
-    productId!: string;
-
-    @IsString()
-    attachedByUserId?: string
-    
+  @IsString()
+  @IsOptional()
+  attachedByUserId?: string;
 }

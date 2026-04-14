@@ -1,34 +1,30 @@
-import { IsNumber, IsOptional, IsString, Min } from "class-validator";
-import type { ProductStatus } from "./product.schema";
+import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import type { ProductStatus } from './product.schema';
 
+export class CreateProductDto {
+  @IsString()
+  name!: string;
 
-export class CreateProductDto{
+  @IsString()
+  description!: string;
 
-    @IsString()
-    name!: string;
+  @IsNumber()
+  @Min(0)
+  price!: number;
 
-    @IsString()
-    description!: string;
+  @IsOptional()
+  @IsString()
+  status?: ProductStatus;
 
-    @IsNumber()
-    @Min(0)
-    price!: number;
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
 
-    @IsOptional()
-    @IsString()
-    status?: ProductStatus;
-
-
-    @IsOptional()
-    @IsString()
-    imageUrl?: string;
-
-    @IsString()
-    createdByClerkUserId!: string
+  @IsString()
+  createdByClerkUserId!: string;
 }
 
-
 export class GetProductByIdDto {
-    @IsString()
-    id!: string
+  @IsString()
+  id!: string;
 }

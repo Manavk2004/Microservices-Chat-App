@@ -1,12 +1,15 @@
-
-
-export type RpcErrorCode = 'BAD_REQUEST' | "VALIDATION_ERROR" | "NOT_FOUND" | "UNAUTHORIZED" | "FORBIDDEN" | "INTERNAL"
+export type RpcErrorCode =
+  | 'BAD_REQUEST'
+  | 'VALIDATION_ERROR'
+  | 'NOT_FOUND'
+  | 'UNAUTHORIZED'
+  | 'FORBIDDEN'
+  | 'INTERNAL';
 
 export type RpcErrorPayload = {
-    code: RpcErrorCode;
+  code: RpcErrorCode;
 
-    message: string;
+  message: string;
 
-    details?: any
-
-}
+  details?: any;
+};

@@ -2,12 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CatalogService {
-
-  ping(){
+  ping() {
     return {
       ok: true,
       service: 'catalog',
-      now: new Date().toISOString()
-    }
+      now: new Date().toISOString(),
+    };
   }
 }

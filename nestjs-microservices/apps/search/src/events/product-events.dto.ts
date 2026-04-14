@@ -1,31 +1,26 @@
-import { IsIn, IsNumber, IsOptional, IsString } from "class-validator";
-
-
+import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class ProductCreatedDto {
+  @IsString()
+  productId!: string;
 
-    @IsString()
-    productId!: string;
+  @IsString()
+  name!: string;
 
-    @IsString()
-    name!: string;
+  @IsString()
+  description!: string;
 
-    @IsString()
-    description!: string;
+  @IsIn(['DRAFT', 'ACTIVE'])
+  status!: 'DRAFT' | 'ACTIVE';
 
-    @IsIn(['DRAFT', 'ACTIVE'])
-    status!: 'DRAFT' | 'ACTIVE';
+  @IsNumber()
+  price!: number;
 
-    @IsNumber()
-    price!: number;
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
 
-    @IsOptional()
-    @IsString()
-    imageUrl?: string;
-
-    @IsOptional()
-    @IsString()
-    createdByClerkUserId!: string
+  @IsOptional()
+  @IsString()
+  createdByClerkUserId!: string;
 }
-
-

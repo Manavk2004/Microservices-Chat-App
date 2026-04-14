@@ -6,12 +6,11 @@ import { applyToMicroservice } from '@app/rpc';
 
 async function bootstrap() {
   process.title = 'media';
-  const logger = new Logger('MediaBootstrap')
+  const logger = new Logger('MediaBootstrap');
 
   const rmqUrl = process.env.RABBITMQ_URL ?? 'amqp://localhost:5672';
 
-  const queue = process.env.MEDIA_QUEUE ?? 'media_queue'
-
+  const queue = process.env.MEDIA_QUEUE ?? 'media_queue';
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     MediaModule,
@@ -21,18 +20,18 @@ async function bootstrap() {
         urls: [rmqUrl],
         queue,
         queueOptions: {
-          durable: false
-        }
-      }
-    }
-  )
+          durable: false,
+        },
+      },
+    },
+  );
 
   applyToMicroservice(app);
 
-  app.enableShutdownHooks()
+  app.enableShutdownHooks();
 
-  await app.listen()
+  await app.listen();
 
-  logger.log(`Media RMQ listening on queue ${queue} via ${rmqUrl}`)
+  logger.log(`Media RMQ listening on queue ${queue} via ${rmqUrl}`);
 }
-bootstrap();
+void bootstrap();

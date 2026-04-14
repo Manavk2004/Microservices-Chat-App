@@ -1,18 +1,16 @@
-import { Logger } from "@nestjs/common";
-import { NestFactory } from "@nestjs/core";
-import { MicroserviceOptions, Transport } from "@nestjs/microservices";
-import { CatalogModule } from "./catalog.module";
-import { applyToMicroservice } from "@app/rpc";
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { CatalogModule } from './catalog.module';
+import { applyToMicroservice } from '@app/rpc';
 
-async function bootstrap(){
-  process.title = 'catalog'
+async function bootstrap() {
+  process.title = 'catalog';
 
-  const logger = new Logger('CatalogBootstrap')
-  const port = Number(process.env.CATALOG_TCP_PORT ?? 4011)
-
+  const logger = new Logger('CatalogBootstrap');
   const rmqUrl = process.env.RABBITMQ_URL ?? 'amqp://localhost:5672';
 
-  const queue = process.env.CATALOG_QUEUE ?? 'catalog_queue'
+  const queue = process.env.CATALOG_QUEUE ?? 'catalog_queue';
 
   //Create a microservice instance
 
@@ -24,23 +22,19 @@ async function bootstrap(){
         urls: [rmqUrl],
         queue,
         queueOptions: {
-          durable: false
-        }
-      }
-    }
-  )
+          durable: false,
+        },
+      },
+    },
+  );
 
   applyToMicroservice(app);
 
   app.enableShutdownHooks();
 
+  await app.listen();
 
-  await app.listen()
-
-  logger.log(`Catalog RMQ listening on queue ${queue} via ${rmqUrl}`)
+  logger.log(`Catalog RMQ listening on queue ${queue} via ${rmqUrl}`);
 }
 
-
-bootstrap()
-
-
+void bootstrap();
